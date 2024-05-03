@@ -34,6 +34,9 @@ function editObject(index) {
         document.getElementById('error-message').innerText = 'Пожалуйста, введите корректные данные.';
         return;
     }
+    else{
+        document.getElementById('error-message').innerText = 'Операция успешно выполнена!';
+    }
     // Добавить через второй if/else проверку что если данные совпадают то этот эллемент будет равен = ""
 
     objects[index].name = newName;
