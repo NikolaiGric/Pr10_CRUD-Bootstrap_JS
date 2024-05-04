@@ -5,7 +5,7 @@ function addObject() {
     const price = document.getElementById('price').value;
     const category = document.getElementById('category').value;
     const imageInput = document.getElementById('image');
-    const imageFile = imageInput.files[0]; // Получаем выбранный файл
+    const imageFile = imageInput.files[0]; 
 
     if (!validateInput(name, price) || !imageFile) {
         document.getElementById('error-message').innerText = 'Пожалуйста, введите корректные данные и выберите изображение.';
@@ -16,12 +16,12 @@ function addObject() {
         name: name,
         price: parseFloat(price),
         category: category,
-        image: URL.createObjectURL(imageFile) // Создаем URL изображения из выбранного файла
+        image: URL.createObjectURL(imageFile)
     };
 
     objects.push(object);
     displayObjects();
-    imageInput.value = ''; // Сбрасываем значение input файла после добавления
+    imageInput.value = ''; 
 }
 
 function deleteObject(index) {
@@ -34,7 +34,7 @@ function editObject(index) {
     const newPrice = document.getElementById('price').value;
     const newCategory = document.getElementById('category').value;
     const imageInput = document.getElementById('image');
-    const newImageFile = imageInput.files[0]; // Получаем новый выбранный файл
+    const newImageFile = imageInput.files[0]; 
 
     if (!validateInput(newName, newPrice) || !newImageFile) {
         document.getElementById('error-message').innerText = 'Пожалуйста, введите корректные данные и выберите изображение.';
@@ -45,12 +45,12 @@ function editObject(index) {
         name: newName,
         price: parseFloat(newPrice),
         category: newCategory,
-        image: URL.createObjectURL(newImageFile) // Создаем URL изображения из нового выбранного файла
+        image: URL.createObjectURL(newImageFile) 
     };
 
     objects[index] = object;
     displayObjects();
-    imageInput.value = ''; // Сбрасываем значение input файла после редактирования
+    imageInput.value = ''; 
 }
 
 function displayObjects() {
