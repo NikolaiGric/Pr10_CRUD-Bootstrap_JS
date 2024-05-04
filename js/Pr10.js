@@ -4,20 +4,24 @@ function addObject() {
     const name = document.getElementById('name').value;
     const price = document.getElementById('price').value;
     const category = document.getElementById('category').value;
+    const imageInput = document.getElementById('image');
+    const imageFile = imageInput.files[0]; // Получаем выбранный файл
 
-    if (!validateInput(name, price)) {
-        document.getElementById('error-message').innerText = 'Пожалуйста, введите корректные данные.';
+    if (!validateInput(name, price) || !imageFile) {
+        document.getElementById('error-message').innerText = 'Пожалуйста, введите корректные данные и выберите изображение.';
         return;
     }
 
     const object = {
         name: name,
         price: parseFloat(price),
-        category: category
+        category: category,
+        image: URL.createObjectURL(imageFile) // Создаем URL изображения из выбранного файла
     };
 
     objects.push(object);
     displayObjects();
+    imageInput.value = ''; // Сбрасываем значение input файла после добавления
 }
 
 function deleteObject(index) {
@@ -29,21 +33,24 @@ function editObject(index) {
     const newName = document.getElementById('name').value;
     const newPrice = document.getElementById('price').value;
     const newCategory = document.getElementById('category').value;
+    const imageInput = document.getElementById('image');
+    const newImageFile = imageInput.files[0]; // Получаем новый выбранный файл
 
-    if (!validateInput(newName, newPrice)) {
-        document.getElementById('error-message').innerText = 'Пожалуйста, введите корректные данные.';
+    if (!validateInput(newName, newPrice) || !newImageFile) {
+        document.getElementById('error-message').innerText = 'Пожалуйста, введите корректные данные и выберите изображение.';
         return;
     }
-    else{
-        document.getElementById('error-message').innerText = 'Операция успешно выполнена!';
-    }
-    // Добавить через второй if/else проверку что если данные совпадают то этот эллемент будет равен = ""
 
-    objects[index].name = newName;
-    objects[index].price = parseFloat(newPrice);
-    objects[index].category = newCategory;
+    const object = {
+        name: newName,
+        price: parseFloat(newPrice),
+        category: newCategory,
+        image: URL.createObjectURL(newImageFile) // Создаем URL изображения из нового выбранного файла
+    };
 
+    objects[index] = object;
     displayObjects();
+    imageInput.value = ''; // Сбрасываем значение input файла после редактирования
 }
 
 function displayObjects() {
@@ -59,6 +66,7 @@ function displayObjects() {
             const listItem = document.createElement('li');
             listItem.className = 'list-group-item';
             listItem.innerHTML = `<strong>${object.name}</strong> - Цена: ${object.price} - Категория: ${object.category} 
+                                  <img src="${object.image}" alt="${object.name}" class="img-fluid">
                                   <button class="btn btn-sm btn-primary mr-2" onclick="editObject(${index})">Изменить</button>
                                   <button class="btn btn-sm btn-danger" onclick="deleteObject(${index})">Удалить</button>`;
             list.appendChild(listItem);
